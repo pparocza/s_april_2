@@ -73,25 +73,25 @@ function runPatch(){
 		mixerAutomation(now);
 
 	// // KEY MALLETS
-	// playMalletKeys(0, 0*64+16, now);
+	playMalletKeys(0, 64+16, now);
 
 	// BASS LINE
-	// bassLineSection(fund, 16*0, now);
+	bassLineSection(fund, 16, now);
 
 	// SK PAD
-	playSKPad(32*0, now);
+	playSKPad(32, now);
 
 	// // KEY RIBBON
-	// playMMRibbons(48*0, now, mmKey2, 2, [0.0625]);
+	playMMRibbons(48, now, mmKey2, 2, [0.0625]);
 
 	// // XYLOPHONE
-	// playFlutterXylophone(64*0, now);
+	playFlutterXylophone(64, now);
 
 	// 	// NOISE SYNTH
-	// 	playNoiseTone(72, now, fund/P5);
+	playNoiseTone(72, now, fund/P5);
 
 	// 	// DELAY FADE
-	// 	dE.startAtTime(16+now);
+	dE.startAtTime(16+now);
 
 }
 
