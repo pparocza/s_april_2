@@ -137,10 +137,10 @@ function bassLineSection(fund, startTime, now){
 
 //--------------------------------------------------------------
 
-var sKFund = 0.5*400;
+var sKFund = 0.25*432*(P5);
 
-var c1 = new MyArray([1/P4, 1/m3, 1, 1*M2, 1/P5]);
-var c2 = new MyArray([1/(2*M2), 1/M2, 1/P4, 1*M2, 1*P5]);
+var c1 = new MyArray([1/M2, M2*2, P5, M6, P5*2]);
+var c2 = new MyArray([1, P5, P4, 1/m3, P4*2]);
 c1 = c1.multiply(sKFund);
 c2 = c2.multiply(sKFund);
 
@@ -148,78 +148,74 @@ var cArray = [c1, c2];
 
 function playSKPad(startTime, now){
 
-	var startTime = startTime;
-	var now = now;
+		var startTime = startTime;
+		var now = now;
 
-	var output = audioCtx.createGain();
+		var output = audioCtx.createGain();
 
-	var dly = new MyStereoDelay(0.25, 0.11, 0.2, 1);
+		var dly = new MyStereoDelay(0.25, 0.11, 0.2, 1);
 
-	output.connect(dly.input);
-	dly.connect(masterGain);
+		output.connect(dly.input);
+		dly.connect(masterGain);
 
-	dCG2.gain.gain.value = 1;
+		dCG2.gain.gain.value = 1;
 
-	var filterFade = sKFF2;
+		var filterFade = sKFF2;
 
-	sK2.startAtTime(startTime+now);
-	filterFade.startAtTime(1, 10, startTime+now);
-	dE.startAtTime(startTime+now);
+		sK2.startAtTime(startTime+now);
+		filterFade.startAtTime(1, 10, startTime+now);
+		dE.startAtTime(startTime+now);
 
-	// PLAY CHORDS
+		// PLAY CHORDS
 
-	// A
-	for(var i=0; i<12; i++){
-		if(i%2==0){
-			sK2.setFreqsAtTime(cArray[0], startTime+now+(i*8));
-		}
-		else if(i%2==1){
-			sK2.setFreqsAtTime(cArray[1], startTime+now+(i*8));
-		}
-	}
-
-	// FX SEQUENCES
-
-		// FX-S 1
-
-		var sL = 1000;
-
-		var oSeq = new Sequence();
-		var divArray = new MyArray([0.8, 0.4, 0.31]);
-		divArray.multiply(0.5);
-
-			for(var i=0; i<fx.nEffects; i++){
-				// create a new onset sequence
-				oSeq.additive(sL, divArray.array);
-
-				for(var j=0; j<sL; j++){
-					// implement onset sequence
-					fx.effects[i].effect.switchAtTime(randomInt(0, 2), startTime+now+oSeq.sequence[j]);
-				}
+		// A
+		for(var i=0; i<18; i++){
+			if(i%2==0){
+				sK2.setFreqsAtTime(cArray[0], startTime+now+(i*8));
 			}
-
-
-		// FX-S 2
-
-		var sL2 = 1000;
-
-		var oSeq2 = new Sequence();
-		var divArray2 = new MyArray([0.8, 0.4, 0.31]);
-		divArray2.multiply(0.5);
-
-			for(var i=0; i<fx2.nEffects; i++){
-				// create a new onset sequence
-				oSeq2.additive(sL2, divArray2.array);
-
-				for(var j=0; j<sL2; j++){
-					// implement onset sequence
-					fx2.effects[i].effect.switchAtTime(randomInt(0, 2), startTime+now+oSeq2.sequence[j]);
-				}
+			else if(i%2==1){
+				sK2.setFreqsAtTime(cArray[1], startTime+now+(i*8));
 			}
+		}
 
+		// FX SEQUENCES
+
+			// FX-S 1
+
+			var sL = 750;
+
+			var oSeq = new Sequence();
+			var divArray = new MyArray([0.4, 0.2, 0.155]);
+
+				for(var i=0; i<fx.nEffects; i++){
+					// create a new onset sequence
+					oSeq.additive(sL, divArray.array);
+
+					for(var j=0; j<sL; j++){
+						// implement onset sequence
+						fx.effects[i].effect.switchAtTime(randomInt(0, 2), startTime+now+oSeq.sequence[j]);
+					}
+				}
+
+			// FX-S 2
+
+			var sL2 = 285;
+
+			var oSeq2 = new Sequence();
+			var divArray2 = new MyArray([0.4, 0.2, 0.155]);
+
+				for(var i=0; i<fx2.nEffects; i++){
+					// create a new onset sequence
+					oSeq2.additive(sL2, divArray2.array);
+
+					for(var j=0; j<sL2; j++){
+						// implement onset sequence
+						fx2.effects[i].effect.switchAtTime(randomInt(0, 2), 72+startTime+now+oSeq2.sequence[j]);
+					}
+				}
 
 		// STOP
-		sK2.stopAtTime(startTime+now+64);
+		sK2.stopAtTime(startTime+now+48+32+16); //48+32+32
 
 }
 

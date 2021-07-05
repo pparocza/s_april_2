@@ -504,7 +504,7 @@ var oAmG2;
 function initSKPad(fund){
 
 	output = audioCtx.createGain();
-	output.gain.value = 4.5;
+	output.gain.value = 1.25;
 
 	var fund = fund;
 
@@ -518,11 +518,8 @@ function initSKPad(fund){
 	var sawSines = new SawSines(nNodes, cArray[0], rateArray);
 	var multiPan = new MyGain(1);
 
-	var inArray = new Sequence();
-	inArray = inArray.duplicates(nNodes, 0.2);
-
-	var outArray = new Sequence();
-	outArray = outArray.duplicates(nNodes, 0.01);
+	var inArray = [0.2, 0.2, 0.2, 0.2, 0.2]
+	var outArray = [0.01, 0.01, 0.01, 0.01, 0.01];
 
 	var sB2 = new ShaperBank(nNodes, inArray, outArray);
 	sB2.on.gain.gain.value = 1;
@@ -670,6 +667,7 @@ function initSKPad(fund){
 	oG2.gain.gain.value = 1;
 	oG3.gain.gain.value = 1;
 
+	// TO MIXER
 	oG1.connect(sKG);
 	oG2.connect(sKG);
 	oG3.connect(sKG);

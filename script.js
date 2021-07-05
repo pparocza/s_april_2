@@ -38,7 +38,7 @@ function bufferLoaded(){
 	f.connect(audioCtx.destination);
 
 	// INITIALIZE
-	var fund = 432;
+	var fund = 432*P5;
 
 	mixerInit();
 
