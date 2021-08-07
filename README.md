@@ -1,2 +1,3 @@
 # s_april_2
-generative music with Web Audio API
+
+https://pparocza.github.io/s_april_2/
